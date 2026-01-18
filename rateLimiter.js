@@ -3,8 +3,8 @@ const redisClient = require("./redisClient");
 
 
 const RATE_LIMITS = {
-  basic: { capacity: 10, refillRate: 10 / 180 },
-  pro: { capacity: 100, refillRate: 100 / 180 }
+  basic: { capacity: 10, refillRate: 10 / 60 },
+  pro: { capacity: 100, refillRate: 100 / 60 }
 };
 
 
@@ -56,11 +56,9 @@ async function rateLimiter(req, res, next) {
     return res.status(401).json({ error: "API key required" });
   }
 
-  const tier = getTierFromApiKey(apiKey);
-  if (!tier) {
-    return res.status(403).json({ error: "Invalid API key" });
-  }
 
+  const tier = getTierFromApiKey(apiKey);
+  
   const limit = RATE_LIMITS[tier];
   const redisKey = `rate_limit:${apiKey}`;
   const now = Math.floor(Date.now() / 1000);
