@@ -23,8 +23,8 @@ Low-latency request validation using Redis
 ###This project implements the Token Bucket Algorithm.
 
 Tier	Limit
-Basic	10 requests/min
-Pro	100 requests/min
+Basic	10 : requests/min
+Pro	100 : requests/min
 
 ###Workflow
 
